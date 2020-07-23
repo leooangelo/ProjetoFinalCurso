@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+<link href="https://fonts.googleapis.com/css?family=Anton&display=swap"
+	rel="stylesheet">
+
+
+<head>
+<meta charset="UTF-8" />
+
+<script type="text/javascript" src="/jspdf/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" ></script>
+</head>
+
+<body>
+
+	<section class="layout-content" layout:fragment="corpo">
+		<main role="main">
+
+
+			<img class="d-block mx-auto mb-4"
+				th:src="@{/image/spring-security.png}" width="72" height="72">
+
+			<div class="container">
+				<h1 class="jumbotron-heading">Clínica Spring Security</h1>
+				<p class="lead" style="color: #6bbd47; text-align: center;">Prescrição
+					rápida e inteligente que promove adesão do seu paciente ao
+					tratamento.</p>
+			</div>
+
+			<section class="jumbotron text-center "></section>
+
+
+			<div class="album py-5 bg-light fixed">
+				<div class="container">
+
+					<div class="gerarReceita" style="text-align: center;">
+						<h2>Gerar Receita Médica</h2>
+
+					</div>
+				</div>
+				
+					<div class="mb-3" style="margin-left: 10%;">
+									<label for="nome">Nome do Médico</label>
+									<div class="input-group" style="width: 50%">
+										<input type="text" class="form-control" id="nomeMedico"
+											placeholder="insira seu nome completo" maxlength="40" required />
+										<div class="invalid-feedback">Nome é requerido.</div>
+									</div>
+								</div>
+								
+								
+								<div class="mb-3" style="margin-top: -86px;">
+									<label for="nome" style="margin-left: 60%;">CRM</label>
+									<div class="input-group" style="width: 20%; margin-left: 60%;">
+										<input type="text" class="form-control" maxlength="7" id="crm"
+											placeholder="CRM" required />
+										<div class="invalid-feedback">CRM é requerido.</div>
+									</div>
+								</div>
+								
+								<div class="mb-3" style="margin-left: 10%">
+									<label for="nome">Nome do Paciente</label>
+									<div class="input-group" style="width: 50%">
+										<input type="text" class="form-control" maxlength="40" id="nomePaciente"
+											placeholder="insira seu nome completo" required />
+										<div class="invalid-feedback">Nome é requerido.</div>
+									</div>
+								</div>
+								
+								<div class="mb-3" style="margin-top: -86px;">
+									<label for="dataPaciente" style="margin-left: 60%;">Data de Nascimento</label>
+									<div class="input-group" style="width: 20%; margin-left: 60%;">
+										<input type="date" class="form-control" id="dataPaciente"
+											placeholder="Data de nascimento" required />
+									</div>
+								</div>
+								
+							<div class="mb-3" style="margin-left: 10%;">
+								<label for="receita">Descrição</label><br>	
+									<textarea rows="10" cols="10" name="receita" wrap="on" id="receita"
+										maxlength="500" style="width: 55%;" spellcheck="false"></textarea><br></br>
+							<br> <input type="submit" class="btn btn-primary" id="bt" value="Gerar Receita">				
+						</div>
+					</div>
+											
+		</main>
+	</section>
+	<script th:src="~{}" th:fragment="js"></script>
+	<script th:inline="javascript" th:fragment="inlinescript">
+	
+		$(document).ready(function() {
+			$('#bt').click(function() {
+				var doc = new jsPDF();
+				
+				var nomeMedico = $('#nomeMedico').val();
+				var nomePaciente = $('#nomePaciente').val();
+				var dataPaciente = $('#dataPaciente').val();
+				var crm = $('#crm').val();
+				var date = new Date();
+				var dateString = "Data: " + date;
+				var receita = $('#receita').val();
+				doc.setFont("Arial")
+				
+				doc.setFontSize(15);
+				doc.setTextColor(50,205,50);
+				doc.text(10,10,'Clínica');
+				doc.text(15,15,'Spring Security');
+				
+				doc.setFontSize(12);
+				doc.setTextColor(0,0,0);
+				doc.setFontType("bold")
+				doc.text(80,10,'RECEITUÁRIO MÉDICO');
+				
+				doc.setFontType("normal")
+				doc.text(10,20,'_________________________________________________________________________________________');
+				
+				doc.setTextColor(0,0,0);
+				doc.setFontType("normal")
+				
+				doc.setFontSize(12)
+				doc.setFontType("bold")
+				doc.text(10, 30,'Dr (a).');
+				doc.setFontType("normal")
+				doc.setFontSize(11);
+				doc.text(23, 30, nomeMedico);
+				
+				doc.setFontType("bold")
+				doc.text(10, 40,'CRM:')
+				doc.setFontType("normal")
+				doc.setFontSize(11);
+				doc.text(22, 40, crm);	
+				
+				doc.setFontSize(9);
+				doc.text(100, 35, dateString);
+				
+				doc.setFontSize(12);
+				doc.text(10,45,'_________________________________________________________________________________________');
+				
+				doc.setFontType("bold")
+				doc.text(10, 55,'Paciente:');
+				doc.setFontSize(11);
+				doc.setFontType("normal")
+				doc.text(28, 55, nomePaciente);
+				
+				doc.setFontSize(12);
+				doc.setFontType("bold")
+				doc.text(10, 65, 'Data de Nascimento: ');
+				doc.setFontSize(11);
+				doc.setFontType("normal")
+				doc.text(49, 65, dataPaciente);
+				
+				doc.setFontSize(12);
+				doc.text(10,70,'_________________________________________________________________________________________');
+				
+				doc.setFontType("bold")
+				doc.text(90, 80, 'DESCRIÇÃO')
+				doc.setFontType("normal")	
+				doc.text(10, 85, receita);
+	            
+				doc.save('receita.pdf');
+				
+			})
+		});
+	</script>
+</body>
+</html>
