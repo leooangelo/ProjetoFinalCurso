@@ -44,8 +44,8 @@
 									<label for="nome">Nome do Médico</label>
 									<div class="input-group" style="width: 50%">
 										<input type="text" class="form-control" id="nomeMedico"
-											placeholder="insira seu nome completo" maxlength="40" required />
-										<div class="invalid-feedback">Nome é requerido.</div>
+											placeholder="Insira seu nome completo" maxlength="40" required />
+										<div class="invalid-feedback">Nome do Médico é requerido.</div>
 									</div>
 								</div>
 								
@@ -63,8 +63,8 @@
 									<label for="nome">Nome do Paciente</label>
 									<div class="input-group" style="width: 50%">
 										<input type="text" class="form-control" maxlength="40" id="nomePaciente"
-											placeholder="insira seu nome completo" required />
-										<div class="invalid-feedback">Nome é requerido.</div>
+											placeholder="Insira nome do Paciente completo" required />
+										<div class="invalid-feedback">Nome do Paciente é requerido.</div>
 									</div>
 								</div>
 								
@@ -81,7 +81,7 @@
 									<label for="dataConsulta">Data</label>
 									<div class="input-group" style="width: 50%">
 										<input type="date" class="form-control"id="dataConsulta"
-											placeholder="Data" required />
+											placeholder="Insira Data" required />
 										<div class="invalid-feedback">Data</div>
 									</div>
 								</div>
@@ -89,7 +89,9 @@
 								<div class="mb-3" style="margin-top: -86px;">
 									<label for="cid" style="margin-left: 60%;">CID</label>
 									<div class="input-group" style="width: 20%;  margin-left: 60%;">
-										<input type="text" class="form-control" maxlength="11" id="cid"required />
+										<input type="text" class="form-control"
+										placeholder="Insira CID" maxlength="25" id="cid"required />
+										<div class="invalid-feedback">CID é requerido.</div>
 									</div>
 								</div>
 								
@@ -97,8 +99,8 @@
 									<label for="convalescença">Convalescença</label>
 									<div class="input-group" style="width: 50%">
 										<input type="text" class="form-control" id="convalescença"
-											placeholder="insira seu nome completo"  maxlength="50" required />
-										<div class="invalid-feedback">Nome é requerido.</div>
+											placeholder="Insira Convalescença"  maxlength="4" required />
+										<div class="invalid-feedback">Convalescença é requerido.</div>
 									</div>
 								</div>		
 								
@@ -167,18 +169,19 @@
 				doc.text(10, 65, 'Portador do RG:');
 				
 				doc.setFontType("normal")
-				doc.text(40, 65,'____________');
+				doc.text(40, 65,'___________');
 				
 				doc.setFontSize(13);
-				doc.text(43, 65, rg);
+				doc.text(42, 65, rg);
 				
 				doc.setFontSize(12);
 				doc.setFontType("bold")
-				doc.text(68,65,'esteve sob meus cuidados profissionais no período do dia');
+				doc.text(67,65,'esteve sob meus cuidados profissionais no período do dia:');
 		
 				doc.setFontType("normal")
 				doc.setFontSize(13);
-				doc.text(173, 65, dataConsulta);
+				doc.text(172, 65, dataConsulta);
+				doc.text(172, 65,'_________');
 				
 				doc.setFontSize(12);
 				doc.setFontType("bold")
@@ -190,23 +193,52 @@
 				
 				doc.setFontType("normal")
 				doc.setFontSize(12);
-				doc.text(69,75,'_________________________________________________________');
+				doc.text(69,75,'____');
 				
 				doc.setFontType("bold")
 				doc.setFontSize(12);
-				doc.text(10,85, 'de convalescença.');
+				doc.text(80	,75, 'dias de convalescença a partir da data do atestado.');
 				
-				doc.text(10,95,'CDI:');
+				doc.text(10,85,'CID:');
 				
 				doc.setFontType("normal")
 				doc.setFontSize(13);
-				doc.text(20,95,cid);
+				doc.text(20,85,cid);
 				
 				doc.setFontSize(12);
-				doc.text(20,95,'____________.')
+				doc.text(20,85,'______________________________.')
+				
+
+				doc.setFontType("bold")
+				doc.setFontSize(12);
+				doc.text(10	,260, 'Doutor(a):');
+				
+				doc.setFontType("normal")
+				doc.setFontSize(13);
+				doc.text(30,260,nomeMedico);
+				doc.text(30,260,'____________________________')
 				
 				
+				doc.setFontType("bold")
+				doc.setFontSize(11);
+				doc.text(10	,270, 'CRM:');
+	            
+				doc.setFontType("normal")
+				doc.setFontSize(13);
+				doc.text(21,270,crm);
+				doc.text(21,270,'_______')
 				
+				doc.text(40,230,'______________________________________________________')
+				doc.text(70	,235, 'Assinatura e carimbo Médico');
+				
+				doc.setFontSize(12);
+				doc.setFontType("normal")
+				doc.text(10,278,'_________________________________________________________________________________________');
+				
+				doc.setFontSize(18);
+				doc.setTextColor(50,205,50);
+				doc.text(160,285,'Clínica');
+				doc.text(165,290,'Spring Security');
 	            
 				doc.save('atestado.pdf');
 				
