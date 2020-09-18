@@ -1,0 +1,35 @@
+.exames h2{
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    margin-right: 20px;
+}
+
+.exames ul{
+    list-style: none;
+    border-radius: 20px;
+    color: white;
+    padding: 10px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.exames ul ul{
+    display: none;
+}
+
+.exames ul li{
+    padding: 20px;
+    border-bottom: 2px solid #f8f9fa;
+    letter-spacing: 1px;
+    background-color: #6bbd47;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    border-radius: 20px;
+    width: 40%;
+}
+
+.exames ul li:hover>ul{
+    display: block;
+    overflow: auto;
+    height: 200px;
+      
+}
