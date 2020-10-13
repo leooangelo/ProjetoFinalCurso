@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+<link href="https://fonts.googleapis.com/css?family=Anton&display=swap"
+	rel="stylesheet">
+
+
+<head>
+<meta charset="UTF-8" />
+
+<script type="text/javascript" src="/jspdf/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" ></script>
+</head>
+
+<body>
+
+	<section class="layout-content" layout:fragment="corpo">
+		<main role="main">
+
+
+			<img class="d-block mx-auto mb-4"
+				th:src="@{/image/spring-security.png}" width="72" height="72">
+
+			<div class="container">
+				<h1 class="jumbotron-heading">Clínica Spring Security</h1>
+				<p class="lead" style="color: #6bbd47; text-align: center;">Fale conosco.</p>
+			</div>
+
+			<section class="jumbotron text-center "></section>
+
+
+			<div class="album py-5 bg-light fixed">
+				<div class="container">
+
+					<div class="gerarReceita" style="text-align: center;">
+						<h2>Insira seu contato</h2>
+
+					</div>
+				</div>
+				
+					<div class="mb-3">
+									<div class="input-group" style="width: 80%;margin: auto;">
+										<input type="text" class="form-control" id="nome"
+											placeholder="Nome completo" maxlength="40" required />
+										<div class="invalid-feedback">Nome é requerido.</div>
+									</div>
+								</div>
+								
+								<div class="mb-3">
+									<div class="input-group" style="width: 80%;margin: auto;">
+										<input type="email" class="form-control" maxlength="40" id="email"
+											placeholder="Email" required />
+										<div class="invalid-feedback">Email é requerido.</div>
+									</div>
+								</div>
+								
+								<div class="mb-3">
+									<div class="input-group" style="width: 80%;margin: auto;">
+										<input onkeypress="$(this).mask('(00) 0000-0000');" type="tel" class="form-control" maxlength="40" id="fone"
+											placeholder="Telefone" required />
+										<div class="invalid-feedback">Telefone é requerido.</div>
+									</div>
+								</div>
+								
+								
+								<div class="mb-3">
+									<div class="input-group" style="width: 80%;margin: auto;">
+										<textarea style="resize: none;" class="fomrm-control" rows="8" cols="155" id="mensagem" name="mensagem" placeholder=" Mensagem" required></textarea>
+										<div class="invalid-feedback">Mensagem é requerido.</div>
+									</div>
+								</div>
+								
+		
+								
+								<div class="mb-3" >
+									<br> <input style="margin-left:135px;width: 80%" type="submit" class="btn btn-primary" id="bt" value="Enviar">
+								</div>
+								
+								<div class="maps" style="padding-top: 20px">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d467689.7971944828!2d-46.8754915172196!3d-23.68216038895823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce448183a461d1%3A0x9ba94b08ff335bae!2zU8OjbyBQYXVsbywgU1A!5e0!3m2!1spt-BR!2sbr!4v1586580608811!5m2!1spt-BR!2sbr" width="1359" height="460" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+            </div>
+					
+								
+					</div>						
+		</main>
+	</section>
+	<script th:src="~{}" th:fragment="js"></script>
+	<script th:inline="javascript" th:fragment="inlinescript">
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+</body>
+</html>
