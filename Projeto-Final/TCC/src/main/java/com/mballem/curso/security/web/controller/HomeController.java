@@ -47,11 +47,6 @@ public class HomeController {
 			return "check-ups";
 		}
 		
-		@GetMapping("/contato")
-		public String contato() {
-			return "mostrar-contato";
-		}
-		
 		@GetMapping("/receita")
 		public String receita() {
 			return "receita";

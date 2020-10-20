@@ -39,16 +39,23 @@
 				</div>
 				
 					<div class="mb-3">
+									
+								
+							
+							<form th:action="@{/contatos/salvar}" 
+							method="POST" class="was-validated">
+								
+								<div class="mb-3">
 									<div class="input-group" style="width: 80%;margin: auto;">
-										<input type="text" class="form-control" id="nome"
-											placeholder="Nome completo" maxlength="40" required />
+										<input type="text" class="form-control" maxlength="40" id="nome" name="nome" 
+											placeholder="Nome" required />
 										<div class="invalid-feedback">Nome é requerido.</div>
 									</div>
 								</div>
 								
 								<div class="mb-3">
 									<div class="input-group" style="width: 80%;margin: auto;">
-										<input type="email" class="form-control" maxlength="40" id="email"
+										<input type="email" class="form-control" maxlength="40" id="email" name="email"
 											placeholder="Email" required />
 										<div class="invalid-feedback">Email é requerido.</div>
 									</div>
@@ -57,7 +64,7 @@
 								<div class="mb-3">
 									<div class="input-group" style="width: 80%;margin: auto;">
 										<input onkeypress="$(this).mask('(00) 0000-0000');" type="tel" class="form-control" maxlength="40" id="fone"
-											placeholder="Telefone" required />
+											placeholder="Telefone" required name="telefone" />
 										<div class="invalid-feedback">Telefone é requerido.</div>
 									</div>
 								</div>
@@ -65,16 +72,18 @@
 								
 								<div class="mb-3">
 									<div class="input-group" style="width: 80%;margin: auto;">
-										<textarea style="resize: none;" class="fomrm-control" rows="8" cols="155" id="mensagem" name="mensagem" placeholder=" Mensagem" required></textarea>
-										<div class="invalid-feedback">Mensagem é requerido.</div>
+										<textarea  style="resize: none;" class="fomrm-control" rows="8" cols="155" id="mensagem" name="mensagem" placeholder=" Mensagem"></textarea>
+										<small class="form-text text-muted" >Se desejar, adicione uma mensagem.</small>	
 									</div>
-								</div>
+								</div>		
 								
-		
+									
 								
 								<div class="mb-3" >
 									<br> <input style="margin-left:135px;width: 80%" type="submit" class="btn btn-primary" id="bt" value="Enviar">
 								</div>
+							</form>
+						
 								
 								<div class="maps" style="padding-top: 20px">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d467689.7971944828!2d-46.8754915172196!3d-23.68216038895823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce448183a461d1%3A0x9ba94b08ff335bae!2zU8OjbyBQYXVsbywgU1A!5e0!3m2!1spt-BR!2sbr!4v1586580608811!5m2!1spt-BR!2sbr" width="1359" height="460" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
