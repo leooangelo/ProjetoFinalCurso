@@ -79,6 +79,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/especialidades/titulo").hasAnyAuthority(MEDICO, ADMIN,PACIENTE)
 		.antMatchers("/especialidades/**").hasAuthority(ADMIN)
 		
+		.antMatchers("/prontuarios/datatables/server/medico/*").hasAnyAuthority(MEDICO, ADMIN)
+		.antMatchers("/prontuarios/titulo").hasAnyAuthority(MEDICO, ADMIN,PACIENTE)
+		.antMatchers("/prontuarios/**").hasAnyAuthority(ADMIN, MEDICO)
+		
 		.anyRequest().authenticated()
 		.and()
 			.formLogin()

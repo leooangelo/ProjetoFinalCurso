@@ -21,17 +21,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Prontuario extends AbstractEntity {
-	@Column(name = "descricao", columnDefinition = "TEXT")
+	
+	@Column(name = "descricao")
 	private String descricao;
-/**	
 	
-	@ManyToOne
-	@JoinColumn(name="id_medico")
-	private Medico medico;
-	
-	@OneToMany
-	@JoinColumn(name="id_paciente")
-	private Paciente paciente;
-	
-	*/
+	@Column(name = "titulo")
+	private String titulo;
 }

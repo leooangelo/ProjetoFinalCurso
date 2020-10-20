@@ -15,5 +15,5 @@ public class DatatablesColunas {
 
 	public static final String[] USUARIOS = {"id", "email", "ativo", "perfis"};	
 	
-	public static final String[] PRONTUARIOS = {"id","descricao","paciente.nome"};
+	public static final String[] PRONTUARIOS = {"id","descricao","titulo"};
 }
