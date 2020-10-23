@@ -1,4 +1,4 @@
-package com.mballem.curso.security.repository.projection;
+package com.mballem.curso.security.repository;
 
 import com.mballem.curso.security.domain.Especialidade;
 import com.mballem.curso.security.domain.Medico;

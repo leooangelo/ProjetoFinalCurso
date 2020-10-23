@@ -24,7 +24,7 @@ public class ExceptionController {
 		ModelAndView model = new ModelAndView("error");
 
 		model.addObject("status", 404);
-		model.addObject("error", "Operação não pode ser realizada");
+		model.addObject("error", "Operação não pode ser realizada !");
 		model.addObject("message", ex.getMessage());
 		return model;
 	}
@@ -40,7 +40,7 @@ public class ExceptionController {
 		ModelAndView model = new ModelAndView("error");
 
 		model.addObject("status", 403);
-		model.addObject("error", "Operação não pode ser realizada");
+		model.addObject("error", "Operação não pode ser realizada.");
 		model.addObject("message", ex.getMessage());
 		return model;
 	}

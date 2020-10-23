@@ -87,39 +87,39 @@ public class AgendamentoController {
 	 * @param user
 	 * @return
 	 * @throws MessagingException
-	 * @throws ParseException 
-	 * @throws MPException 
+	 * @throws ParseException
+	 * @throws MPException
 	 */
 	@PreAuthorize("hasAnyAuthority('PACIENTE','ADMIN')")
 	@PostMapping({ "/salvar" })
 	public String salvar(Agendamento agendamento, RedirectAttributes attr, @AuthenticationPrincipal User user)
 			throws MessagingException, ParseException, MPException {
-		
-		
-		
+
 		Paciente paciente = pacienteService.buscarPorUsuarioEmail(user.getUsername());
 		String titulo = agendamento.getEspecialidade().getTitulo();
 		Especialidade especialidade = especialidadesService.buscarPorTitulos(new String[] { titulo }).stream()
 				.findFirst().get();
 		agendamento.setEspecialidade(especialidade);
 		agendamento.setPaciente(paciente);
-		Long dataConsulta = dataUtils.dataMarcarConsulta(agendamento.getDataConsulta());
-		Long dataSistema = System.currentTimeMillis();
-		
-		if(dataConsulta >=dataSistema) {
-			
+
+		if (agendamento.getDataConsulta().isBefore(LocalDate.now())) {
+
+			attr.addFlashAttribute("falha",
+					"Uma consulta não pode ser agendada para qualquer outra data anterior a de hoje.!");
+
+			return "redirect:/agendamentos/agendar";
+
+		}
+
 		agendamentoService.salvarConsultaAgendada(agendamento);
-		attr.addFlashAttribute("sucesso", "Sua consulta foi agendada com sucesso, verifique seu"
-				+ "email com os dados da consulta agendada.");
-		
+		attr.addFlashAttribute("sucesso",
+				"Sua consulta foi agendada com sucesso, verifique seu" + " email com os dados da consulta agendada.!");
+
 		emailService.enviarConfirmacaoConsulta(user.getUsername(), agendamento.getEspecialidade(),
 				agendamento.getMedico(), agendamento.getDataConsulta(), agendamento.getHorario());
 
 		return "redirect:/agendamentos/agendar";
-		}
-		attr.addFlashAttribute("falha", "Uma consulta não pode ser agendada para qualquer outra data anterior a de hoje");
-		
-		return "redirect:/agendamentos/agendar";
+
 	}
 
 	/**
@@ -132,17 +132,13 @@ public class AgendamentoController {
 
 		return "agendamento/historico-paciente";
 	}
-	
-	
-	
+
 	@PreAuthorize("hasAnyAuthority('MEDICO','ADMIN')")
 	@GetMapping("/historico/consultas")
 	public String historicoDeConsultasAgendadasMedico() {
 
 		return "agendamento/historico-consultas";
 	}
-	
-	
 
 	/**
 	 * Metodo para localizar o historico de consultas agendadas do usuário que
@@ -180,9 +176,9 @@ public class AgendamentoController {
 	}
 
 	/**
-	 * Metodo para editar uma consulta agendada independente do perfil que envia
-	 * um email confirmando que a consulta foi altera e com uma regra de negócio
-	 * que a consulta só pode ser alterada 2 dias antes..
+	 * Metodo para editar uma consulta agendada independente do perfil que envia um
+	 * email confirmando que a consulta foi altera e com uma regra de negócio que a
+	 * consulta só pode ser alterada 2 dias antes..
 	 * 
 	 * @param agendamento
 	 * @param attr
@@ -206,13 +202,13 @@ public class AgendamentoController {
 
 			agendamentoService.editar(agendamento, user.getUsername());
 			attr.addFlashAttribute("sucesso", "Sua consulta foi alterada com sucesso. !");
-			emailService.enviarAlteraçãoConsultaAgendada(user.getUsername(),
-					agendamento.getEspecialidade(), agendamento.getMedico(),
-					agendamento.getDataConsulta(), agendamento.getHorario());
+			emailService.enviarAlteraçãoConsultaAgendada(user.getUsername(), agendamento.getEspecialidade(),
+					agendamento.getMedico(), agendamento.getDataConsulta(), agendamento.getHorario());
 			return "redirect:/agendamentos/agendar";
 		}
 
-		attr.addFlashAttribute("falha", "A data e hora da consulta só pode ser alterada 2 dias antes. !");
+		attr.addFlashAttribute("falha",
+				"A data e hora da consulta não pode ser alterada para data anterior a de hoje.!");
 		return "redirect:/agendamentos/agendar";
 	}
 
@@ -222,25 +218,29 @@ public class AgendamentoController {
 	 * 
 	 * @param attr
 	 * @return
-	 * @throws MessagingException 
+	 * @throws MessagingException
+	 * @throws Exception
 	 */
 	@PreAuthorize("hasAnyAuthority('PACIENTE','ADMIN')")
 	@GetMapping("excluir/consulta/{id}")
-	public String excluirConsulta(@PathVariable("id") Agendamento agendamento, RedirectAttributes attr) throws MessagingException {
+	public String excluirConsulta(@PathVariable("id") Agendamento agendamento, RedirectAttributes attr)
+			throws MessagingException, Exception {
 		Long idUsuario = agendamento.getId();
-		String emailUsuarioPaciente= emailService.buscarEmailPaciente(idUsuario);
-		emailService.enviarConsultaDesmarcada(emailUsuarioPaciente,
-				agendamento.getEspecialidade(), agendamento.getMedico(),
-				agendamento.getDataConsulta(), agendamento.getHorario());
-		agendamentoService.remover(agendamento.getId());
-		attr.addFlashAttribute("sucesso", "Consulta excluída com sucesso.");
-		
-		
-		
+		String emailUsuarioPaciente = emailService.buscarEmailPaciente(idUsuario);
+
+		Long dataConsulta = dataUtils.dataConsulta(agendamento.getDataConsulta());
+		Long dataSistema = System.currentTimeMillis();
+		if (dataSistema <= dataConsulta) {
+			emailService.enviarConsultaDesmarcada(emailUsuarioPaciente, agendamento.getEspecialidade(),
+					agendamento.getMedico(), agendamento.getDataConsulta(), agendamento.getHorario());
+			agendamentoService.remover(agendamento.getId());
+			attr.addFlashAttribute("sucesso", "Consulta excluída com sucesso.");
+
+			return "redirect:/agendamentos/historico/paciente";
+		}
+		attr.addFlashAttribute("falha", "A consulta só pode ser cancelada com até 1 dia de antecedência.!");
 		return "redirect:/agendamentos/historico/paciente";
 
 	}
-	
-	
 
 }

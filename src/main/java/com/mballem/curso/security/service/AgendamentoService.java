@@ -16,7 +16,7 @@ import com.mballem.curso.security.datatables.DatatablesColunas;
 import com.mballem.curso.security.domain.Agendamento;
 import com.mballem.curso.security.domain.Horario;
 import com.mballem.curso.security.repository.AgendamentoRepository;
-import com.mballem.curso.security.repository.projection.HistoricoPaciente;
+import com.mballem.curso.security.repository.HistoricoPaciente;
 import com.mballem.curso.security.web.Exception.AcessoNegadoException;
 
 /**

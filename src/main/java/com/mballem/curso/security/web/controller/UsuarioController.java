@@ -128,7 +128,7 @@ public class UsuarioController {
 				usuarioService.salvarUsuario(usuario);
 				attr.addFlashAttribute("sucesso", "Operação realizada com sucesso !");
 			} catch (DataIntegrityViolationException ex) {
-				attr.addFlashAttribute("falha", "Este e-mail já esta cadastrado no sistema");
+				attr.addFlashAttribute("falha", "Este e-mail já esta cadastrado no sistema !");
 			}
 		}
 		return "redirect:/u/novo/cadastro/usuario";
@@ -251,7 +251,7 @@ public class UsuarioController {
 		try {
 		usuarioService.salvarCadastroPaciente(usuario);
 		}catch(DataIntegrityViolationException ex) {
-			result.reject("email","Ops... Este e-mail já existe na base de dados.");
+			result.reject("email","Ops... Este e-mail já existe na base de dados, por favor utilize outro E-mail.");
 			return"cadastrar-se";
 		}
 		return "redirect:/u/cadastro/realizado";
@@ -268,9 +268,9 @@ public class UsuarioController {
 		
 		usuarioService.ativarCadastroPaciente(codigo);
 		attr.addFlashAttribute("alerta", "sucesso");
-		attr.addFlashAttribute("titulo", "Cadastro realizado com sucesso");
-		attr.addFlashAttribute("texto", "Parabéns, seu cadastro está ativo");
-		attr.addFlashAttribute("subtexto", "Siga com seu login e senha");
+		attr.addFlashAttribute("titulo", "Cadastro realizado com sucesso !");
+		attr.addFlashAttribute("texto", "Parabéns, seu cadastro está ativo.");
+		attr.addFlashAttribute("subtexto", "Siga com seu login e senha.");
 		
 		return "redirect:/login";
 		
@@ -293,7 +293,7 @@ public class UsuarioController {
 	public	String redefinirSenha(String email, ModelMap model) throws MessagingException {
 		
 	usuarioService.pedidoRedefinicaoDeSenha(email);
-	model.addAttribute("sucesso","Em instantes você irá receber um email para prosseguir com  a redefinição de senha");
+	model.addAttribute("sucesso","Em instantes você irá receber um e-mail para prosseguir com  a redefinição de sua senha.");
 	model.addAttribute("usuario", new Usuario(email));
 	return "usuario/recuperar-senha";		
 		
@@ -307,14 +307,14 @@ public class UsuarioController {
 	public String confirmacaoDeRedefinicaoSenha(Usuario usuario, ModelMap model) {
 		Usuario u = usuarioService.buscarPorEmail(usuario.getEmail());
 		if(!usuario.getCodigoVerificador().equals(u.getCodigoVerificador())) {
-			model.addAttribute("falha","Código verificador não confere");
+			model.addAttribute("falha","Código verificador não confere.");
 			return "usuario/recuperar-senha";
 		}
 		u.setCodigoVerificador(null);
 		usuarioService.alterarSenha(u, usuario.getSenha());
 		model.addAttribute("alerta", "sucesso");
-		model.addAttribute("titulo", "Senha foi redefinida com sucesso");
-		model.addAttribute("texto", "Voce ja pode fazer login no sistema");
+		model.addAttribute("titulo", "Sua senha foi redefinida com sucesso !");
+		model.addAttribute("texto", "Você ja pode fazer login no sistema.");
 		return "login";
 		
 	}

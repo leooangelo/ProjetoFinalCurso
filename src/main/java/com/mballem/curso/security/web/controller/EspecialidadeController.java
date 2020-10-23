@@ -87,7 +87,7 @@ public class EspecialidadeController {
 	@GetMapping("/excluir/{id}")
 	public String excluir(@PathVariable("id") Long id, RedirectAttributes redirect) {
 		especialidadeService.remover(id);
-		redirect.addFlashAttribute("sucesso", "Operação realizada com sucesso");
+		redirect.addFlashAttribute("sucesso", "Operação realizada com sucesso !");
 		return "redirect:/especialidades";
 	}
 	

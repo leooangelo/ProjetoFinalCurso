@@ -13,7 +13,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.mballem.curso.security.domain.Agendamento;
 import com.mballem.curso.security.domain.Horario;
-import com.mballem.curso.security.repository.projection.HistoricoPaciente;
 /**
  * 
  * @author leonardoangelo

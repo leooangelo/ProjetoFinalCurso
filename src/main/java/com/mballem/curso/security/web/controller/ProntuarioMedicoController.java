@@ -52,7 +52,7 @@ public class ProntuarioMedicoController {
 	@GetMapping("/excluir/{id}")
 	public String excluir(@PathVariable("id") Long id, RedirectAttributes redirect) {
 		prontuarioMedicoService.remover(id);
-		redirect.addFlashAttribute("sucesso", "Operação realizada com sucesso");
+		redirect.addFlashAttribute("sucesso", "Operação realizada com sucesso !");
 		return "redirect:/prontuarios";
 	}
 	
