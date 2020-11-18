@@ -36,7 +36,11 @@ public class HomeController {
 		public String exames() {
 			return "exames";
 		}	
-		
+				
+		@GetMapping("/fale-conosco")
+		public String faleConosco() {
+			return "fale-conosco";
+		}	
 		@GetMapping("/consultas-lista")
 		public String consultasLista() {
 			return "consultas-lista";

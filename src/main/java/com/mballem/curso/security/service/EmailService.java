@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
+import com.mballem.curso.security.domain.Contato;
 import com.mballem.curso.security.domain.Especialidade;
 import com.mballem.curso.security.domain.Horario;
 import com.mballem.curso.security.domain.Medico;
@@ -197,5 +198,28 @@ public class EmailService {
 		return emailPaciente;
 	}
 	
+	public void enviarEmailContato(String destino,Contato contato) throws MessagingException {
+		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+				"UTF-8");
+
+		Context context = new Context();
+		context.setVariable("titulo", "Bem vindo a Clíniica Spring Security");
+		context.setVariable("texto", "Informações de um novo contato");
+		context.setVariable("nome", contato.getNome());
+		context.setVariable("email", contato.getEmail());
+		context.setVariable("telefone", contato.getTelefone());
+		context.setVariable("mensagem", contato.getMensagem());
+
+		String html = template.process("email/confirmacao-contato", context);
+		helper.setTo(destino);
+		helper.setText(html, true);
+		helper.setSubject("Confirmação das suas informações");
+		helper.setFrom("no-replay@clinica.com.br");
+
+		helper.addInline("logo", new ClassPathResource("/static/image/spring-security.png"));
+
+		mailSender.send(message);
+	}
 
 }

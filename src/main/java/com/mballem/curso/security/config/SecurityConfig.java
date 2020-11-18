@@ -42,11 +42,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		 */
 		http.authorizeRequests()
 		.antMatchers("/webjars/**", "/css/**", "/image/**", "/js/**", "/pdf/**").permitAll()
-		.antMatchers("/", "/home", "/check-ups", "/exames").permitAll()
+		.antMatchers("/", "/home", "/check-ups", "/exames", "/fale-conosco", "/contatos/**", "email/confirmacao-contato").permitAll()
 		.antMatchers("/u/novo/cadastro","/u/cadastro/realizado","/u/cadastro/paciente/salvar").permitAll()
 		.antMatchers("/u/confirmacao/cadastro").permitAll()
 		.antMatchers("/pagamento", "/pay").permitAll()
 		.antMatchers("/u/p/**").permitAll()
+		
 		
 		
 		
@@ -103,6 +104,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(usuarioService).passwordEncoder(new BCryptPasswordEncoder());
+		
 	}	
 	
 	
